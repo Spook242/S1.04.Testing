@@ -22,7 +22,7 @@ public class LibraryTest {
 
     @Test
     void testListNoNull() {
-        assertNotNull(library.getBooks());
+        assertNotNull(library.getBOOKS());
     }
 
     @Test
@@ -32,7 +32,7 @@ public class LibraryTest {
 
     @Test
     void testBookPosition() {
-        List<String> books = library.getBooks();
+        List<String> books = library.getBOOKS();
         assertEquals("A clockwork orange", library.getPositionBook(books.indexOf("A clockwork orange")));
     }
 
@@ -45,19 +45,19 @@ public class LibraryTest {
     @Test
     void testAddBookPosition() {
         library.addPositionBook("Acid House", 1);
-        assertTrue(library.getBooks().contains("Acid House"));
+        assertTrue(library.getBOOKS().contains("Acid House"));
     }
 
     @Test
     void testDeleteBook() {
         library.deleteBook("A clockwork orange");
         assertEquals(2, library.size());
-        assertFalse(library.getBooks().contains("A clockwork orange"));
+        assertFalse(library.getBOOKS().contains("A clockwork orange"));
     }
 
     @Test
     void testOrderedList() {
-        List<String> books = library.getBooks();
+        List<String> books = library.getBOOKS();
         List<String> OrderedCopy = new ArrayList<>(books);
         OrderedCopy.sort(String::compareToIgnoreCase);
         assertEquals(OrderedCopy, books);
