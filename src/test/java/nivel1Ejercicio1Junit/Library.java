@@ -6,45 +6,49 @@ import java.util.List;
 
 public class Library {
 
-    private final List<String> BOOKS;
+    private List<Book> books;
 
     public Library() {
-        this.BOOKS = new ArrayList<>();
+        this.books = new ArrayList<>();
     }
 
-    public void addBook(String title) {
-        if (!BOOKS.contains(title)) {
-            BOOKS.add(title);
-            Collections.sort(BOOKS);
+    public void addBook(Book book) {
+        if (!books.contains(book)) {
+            books.add(book);
+            Collections.sort(books);
         }
     }
 
-    public void addPositionBook(String title, int position) {
-        if (!BOOKS.contains(title) && position >= 0 && position <= BOOKS.size()) {
-            BOOKS.add(position, title);
-            Collections.sort(BOOKS);
+    public void addBookAtPosition(Book book, int position) {
+        if (!books.contains(book) && position >= 0 && position <= books.size()) {
+            books.add(position, book);
+            Collections.sort(books);
         }
     }
 
-    public List<String> getBOOKS() {
-        return new ArrayList<>(BOOKS);
+    public List<Book> getBooks() {
+        return new ArrayList<>(books);
     }
 
-    public String getPositionBook(int position) {
-        if (position >= 0 && position < BOOKS.size()) {
-            return BOOKS.get(position);
+    public Book getBookAtPosition(int position) {
+        if (position >= 0 && position < books.size()) {
+            return books.get(position);
         }
         return null;
     }
 
-    public void deleteBook(String title) {
-        boolean deleted = BOOKS.remove(title);
-        if (deleted) {
-            Collections.sort(BOOKS);
+    public void deleteBook(Book book) {
+        boolean removed = books.remove(book);
+        if (removed) {
+            Collections.sort(books);
         }
     }
 
+    public void clearLibrary() {
+        books = new ArrayList<>();
+    }
+
     public int size() {
-        return BOOKS.size();
+        return books.size();
     }
 }

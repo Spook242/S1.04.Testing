@@ -11,56 +11,63 @@ import static org.junit.jupiter.api.Assertions.*;
 public class LibraryTest {
 
     private Library library;
+    private Book book1, book2, book3;
 
     @BeforeEach
     void setup() {
         library = new Library();
-        library.addBook("A clockwork orange");
-        library.addBook("Acid House");
-        library.addBook("The catcher in the rye");
+        book1 = new Book("A clockwork orange");
+        book2 = new Book("Acid House");
+        book3 = new Book("The catcher in the rye");
+
+        library.addBook(book1);
+        library.addBook(book2);
+        library.addBook(book3);
     }
 
     @Test
-    void testListNoNull() {
-        assertNotNull(library.getBOOKS());
+    void testListNotNull() {
+        assertNotNull(library.getBooks());
     }
 
     @Test
-    void testSizeListAdd() {
+    void testSizeAfterAdd() {
         assertEquals(3, library.size());
     }
 
     @Test
     void testBookPosition() {
-        List<String> books = library.getBOOKS();
-        assertEquals("A clockwork orange", library.getPositionBook(books.indexOf("A clockwork orange")));
+        List<Book> books = library.getBooks();
+        int pos = books.indexOf(book1);
+        assertEquals(book1, library.getBookAtPosition(pos));
     }
 
     @Test
-    void testWithoutDuplicate() {
-        library.addBook("A clockwork orange");
+    void testNoDuplicates() {
+        library.addBook(new Book("A clockwork orange"));
         assertEquals(3, library.size());
     }
 
     @Test
-    void testAddBookPosition() {
-        library.addPositionBook("Acid House", 1);
-        assertTrue(library.getBOOKS().contains("Acid House"));
+    void testAddBookAtPosition() {
+        Book newBook = new Book("Trainspotting");
+        library.addBookAtPosition(newBook, 1);
+        assertTrue(library.getBooks().contains(newBook));
     }
 
     @Test
     void testDeleteBook() {
-        library.deleteBook("A clockwork orange");
+        library.deleteBook(book1);
         assertEquals(2, library.size());
-        assertFalse(library.getBOOKS().contains("A clockwork orange"));
+        assertFalse(library.getBooks().contains(book1));
     }
 
     @Test
-    void testOrderedList() {
-        List<String> books = library.getBOOKS();
-        List<String> OrderedCopy = new ArrayList<>(books);
-        OrderedCopy.sort(String::compareToIgnoreCase);
-        assertEquals(OrderedCopy, books);
+    void testBooksOrderedAlphabetically() {
+        List<Book> books = library.getBooks();
+        List<Book> orderedCopy = new ArrayList<>(books);
+        orderedCopy.sort(Book::compareTo);
+        assertEquals(orderedCopy, books);
     }
 }
 
